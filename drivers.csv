@@ -1,0 +1,31 @@
+driver_id,driver_name,phone,license_type,status
+D001,Ravi Naidu,9000000001,LMV,On Leave
+D002,Suresh Sharma,9000000002,LMV,On Leave
+D003,Anil Babu,9000000003,LMV,Available
+D004,Kiran Reddy,9000000004,Transport,On Duty
+D005,Prasad Das,9000000005,Transport,On Leave
+D006,Mohan Rao,9000000006,LMV,On Leave
+D007,Ramesh Varma,9000000007,Transport,Available
+D008,Venkat Kumar,9000000008,LMV,Available
+D009,Sai Naidu,9000000009,Transport,On Duty
+D010,Naveen Sharma,9000000010,Transport,Available
+D011,Arjun Babu,9000000011,LMV,On Leave
+D012,Balu Reddy,9000000012,Transport,Available
+D013,Chandra Das,9000000013,Transport,On Duty
+D014,Deepak Rao,9000000014,Transport,Available
+D015,Hari Varma,9000000015,Transport,Available
+D016,Manoj Kumar,9000000016,LMV,On Leave
+D017,Pavan Naidu,9000000017,Transport,On Leave
+D018,Rajesh Sharma,9000000018,Transport,On Leave
+D019,Surya Babu,9000000019,Transport,On Duty
+D020,Tarun Reddy,9000000020,LMV,Available
+D021,Ravi Das,9000000021,Transport,Available
+D022,Suresh Rao,9000000022,LMV,Available
+D023,Anil Varma,9000000023,LMV,On Leave
+D024,Kiran Kumar,9000000024,LMV,On Leave
+D025,Prasad Naidu,9000000025,Transport,On Leave
+D026,Mohan Sharma,9000000026,LMV,On Duty
+D027,Ramesh Babu,9000000027,Transport,On Leave
+D028,Venkat Reddy,9000000028,Transport,On Leave
+D029,Sai Das,9000000029,Transport,On Leave
+D030,Naveen Rao,9000000030,LMV,On Leave
