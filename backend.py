@@ -41,34 +41,27 @@ def initialize_database():
             departure_time TEXT, status TEXT
         );
         """)
+
         for table, (filename, columns) in TABLE_FILES.items():
-            count = con.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0]
             csv_path = DATA_DIR / filename
-            if count == 0 and csv_path.exists():
+
+            if csv_path.exists():
                 df = pd.read_csv(csv_path)
-                df.to_sql(table, con, if_exists="append", index=False)
+                df = df[columns].drop_duplicates(
+                    subset=[columns[0]]
+                )
 
-def get_table(table):
-    if table not in TABLE_FILES:
-        raise ValueError("Unknown table")
-    with connect() as con:
-        return pd.read_sql_query(f"SELECT * FROM {table}", con)
+                placeholders = ",".join(["?"] * len(columns))
+                column_names = ",".join(columns)
 
-def add_record(table, values):
-    if table not in TABLE_FILES:
-        raise ValueError("Unknown table")
-    columns = TABLE_FILES[table][1]
-    placeholders = ",".join(["?"] * len(columns))
-    query = f"INSERT INTO {table} ({','.join(columns)}) VALUES ({placeholders})"
-    with connect() as con:
-        con.execute(query, [values.get(col) for col in columns])
+                query = (
+                    f"INSERT OR IGNORE INTO {table} "
+                    f"({column_names}) VALUES ({placeholders})"
+                )
 
-def delete_record(table, id_column, record_id):
-    if table not in TABLE_FILES:
-        raise ValueError("Unknown table")
-    with connect() as con:
-        con.execute(f"DELETE FROM {table} WHERE {id_column} = ?", (record_id,))
-
-def update_vehicle_status(vehicle_id, status):
-    with connect() as con:
-        con.execute("UPDATE vehicles SET status=? WHERE vehicle_id=?", (status, vehicle_id))
+                con.executemany(
+                    query,
+                    df.astype(object).where(
+                        pd.notna(df), None
+                    ).values.tolist()
+                )
