@@ -79,3 +79,34 @@ def get_table(table):
         return pd.read_sql_query(
             f"SELECT * FROM {table}", con
         )
+def add_record(table, values):
+    if table not in TABLE_FILES:
+        raise ValueError("Unknown table")
+
+    columns = TABLE_FILES[table][1]
+
+    placeholders = ",".join(["?"] * len(columns))
+    column_names = ",".join(columns)
+
+    query = (
+        f"INSERT INTO {table} "
+        f"({column_names}) VALUES ({placeholders})"
+    )
+
+    with connect() as con:
+        con.execute(
+            query,
+            [values.get(col) for col in columns]
+        )
+def delete_record(table, id_column, record_id):
+    if table not in TABLE_FILES:
+        raise ValueError("Unknown table")
+
+    if id_column != TABLE_FILES[table][1][0]:
+        raise ValueError("Invalid ID column")
+
+    with connect() as con:
+        con.execute(
+            f"DELETE FROM {table} WHERE {id_column} = ?",
+            (record_id,)
+        )
