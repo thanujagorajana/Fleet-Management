@@ -71,3 +71,11 @@ def update_vehicle_status(vehicle_id, status):
             "UPDATE vehicles SET status=? WHERE vehicle_id=?",
             (status, vehicle_id)
         )
+def get_table(table):
+    if table not in TABLE_FILES:
+        raise ValueError("Unknown table")
+
+    with connect() as con:
+        return pd.read_sql_query(
+            f"SELECT * FROM {table}", con
+        )
