@@ -65,3 +65,9 @@ def initialize_database():
                         pd.notna(df), None
                     ).values.tolist()
                 )
+def update_vehicle_status(vehicle_id, status):
+    with connect() as con:
+        con.execute(
+            "UPDATE vehicles SET status=? WHERE vehicle_id=?",
+            (status, vehicle_id)
+        )
