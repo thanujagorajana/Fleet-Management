@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 
 DB_PATH = Path(__file__).resolve().parent / "fleet.db"
-DATA_DIR = Path(__file__).resolve().parent / "data"
+DATA_DIR = Path(__file__).resolve().parent 
 
 TABLE_FILES = {
     "vehicles": ("vehicles.csv", ["vehicle_id","registration_no","vehicle_type","model_year","status","odometer_km"]),
